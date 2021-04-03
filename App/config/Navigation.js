@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity, TouchableOpacityBase } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 import CurrencyList from '../screens/CurrencyList';
 import colors from '../constants/colors';
+import { ConversionContextProvider } from '../util/ConversionContext';
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
@@ -56,6 +57,8 @@ const ModalStackScreen = () => (
 
 export default () => (
   <NavigationContainer>
-    <ModalStackScreen />
+    <ConversionContextProvider>
+      <ModalStackScreen />
+    </ConversionContextProvider>
   </NavigationContainer>
 );
