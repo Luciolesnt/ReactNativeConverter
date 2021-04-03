@@ -64,13 +64,18 @@ const styles = StyleSheet.create({
 });
 
 export default ({ navigation }) => {
-  const baseCurrency = 'USD';
-  const quoteCurrency = 'GBP';
+  const [baseCurrency, setBaseCurrency] = useState('USD');
+  const [quoteCurrency, setQuoteCurrency] = useState('GBP');
+  const [value, setValue] = useState('100')
   const conversionRate = '0.8345';
   const date = new Date();
 
   const [scrollEnabled, setScrollEnabled] = useState(false);
 
+  const swapCurrencies = () => {
+    setBaseCurrency(quoteCurrency);
+    setQuoteCurrency(baseCurrency);
+  }
 
   return (
     <View style={styles.container}>
@@ -93,15 +98,17 @@ export default ({ navigation }) => {
 
           <ConversionInput 
             text={baseCurrency}
-            value="1234"
-            onButtonPress={() => navigation.push("CurrencyList", { title: 'Base Currency' })}
-            onChangeText={text => console.log("text", text)}
+            value={value}
+            onButtonPress={() => navigation.push("CurrencyList", { title: 'Base Currency', activeCurrency: baseCurrency })}
+            onChangeText={text => setValue(text)}
             keyboardType="numeric"
           />
           <ConversionInput 
             text={quoteCurrency}
-            value="1234"
-            onButtonPress={() => navigation.push("CurrencyList", { title: 'Quote Currency' })}
+            value={
+              value && `${(parseFloat(value) * conversionRate).toFixed(2)}`
+            }
+            onButtonPress={() => navigation.push("CurrencyList", { title: 'Quote Currency', activeCurrency: quoteCurrency })}
             editable={false}
           />
 
@@ -109,7 +116,7 @@ export default ({ navigation }) => {
             {`1 ${baseCurrency} ${conversionRate} ${quoteCurrency} as of ${format(date, 'MMMM do, yyyy')}.`}
           </Text>
 
-          <Button text="Reverse Currencies" onPress={() => alert("todo!")} />
+          <Button text="Reverse Currencies" onPress={() => swapCurrencies()} />
           <KeyboardSpacer onToggle={(keyboardIsVisible) => setScrollEnabled(keyboardIsVisible)} />
         </View>
       </ScrollView>
