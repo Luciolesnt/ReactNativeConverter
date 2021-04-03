@@ -1,0 +1,10 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19000,
+  "webpackServerPort": null,
+  "expoServerNgrokUrl": "https://ws-zx4.luciolesnt.ReactNativeConverter.exp.direct",
+  "packagerNgrokUrl": "https://packager.ws-zx4.luciolesnt.ReactNativeConverter.exp.direct",
+  "ngrokPid": 59416,
+  "packagerPid": null
+}
