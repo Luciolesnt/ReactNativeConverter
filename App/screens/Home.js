@@ -64,11 +64,15 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => {
   const [value, setValue] = useState("100");
-  const conversionRate = "0.8345";
-  const date = new Date();
-  const { baseCurrency, quoteCurrency, swapCurrencies } = useContext(
-    ConversionContext
-  );
+  const {
+    baseCurrency,
+    quoteCurrency,
+    swapCurrencies,
+    date,
+    rates,
+  } = useContext(ConversionContext);
+  
+  const conversionRate = rates[quoteCurrency];
 
   const [scrollEnabled, setScrollEnabled] = useState(false);
 
@@ -125,10 +129,9 @@ export default ({ navigation }) => {
           />
 
           <Text style={styles.text}>
-            {`1 ${baseCurrency} ${conversionRate} ${quoteCurrency} as of ${format(
-              date,
-              "MMMM do, yyyy"
-            )}.`}
+            {`1 ${baseCurrency} ${conversionRate} ${quoteCurrency} as of ${
+              date && format(new Date(date), "MMMM do, yyyy")
+            }.`}
           </Text>
 
           <Button text="Reverse Currencies" onPress={() => swapCurrencies()} />
